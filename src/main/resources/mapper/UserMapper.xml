@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.zzx.login.dao.UserDao">
+
+    <insert id="registerAccount">
+        insert into farm.farm_login(account,password,phone,create_time,update_time)
+            values(#{account},#{password},#{phone},now(),now())
+    </insert>
+
+    <select id="queryExistAccount" resultType="java.lang.Integer">
+        select id from farm.farm_login where account = #{account}
+    </select>
+
+    <select id="queryUserByAccount" resultType="com.zzx.login.entity.UserDto">
+        SELECT login.id id,login.account account,login.password password
+            FROM farm.farm_login login WHERE account = #{account} AND STATUS = 1
+    </select>
+
+</mapper>
